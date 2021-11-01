@@ -12,22 +12,30 @@
     <div class="container">
         <div class="top">
             <div id="date">Hallo</div>
-            <h1>My fancy desktop</h1>
+            <h1>Starter files - Copy-Paste</h1>
             <div id="clock"></div>
         </div>
         <div class="main">
             <div class="widget">
-                <h3>Notepad</h3>
+                <h3>index.html</h3>
                 <div class="notepad">
-                    <textarea onload="loadNotes" id="note-area" name="message" rows="20" cols="40"></textarea>
+                    <textarea id="note-area1" name="message" rows="20" cols="40"></textarea>
+                    <p><button id="copyBtn1">Copy</button></p>
                 </div>
-                <p><button id="saveNoteBtn">Save</button></p>
             </div>
             <div class="widget">
-                <h3>Widget 02</h3>
+                <h3>style.css</h3>
+                <div class="notepad">
+                    <textarea id="note-area2" name="message" rows="20" cols="40"></textarea>
+                    <p><button id="copyBtn2">Copy</button></p>
+                </div>
             </div>
             <div class="widget">
-                <h3>Widget 03</h3>
+                <h3>scripts.js</h3>
+                <div class="notepad">
+                    <textarea id="note-area3" name="message" rows="20" cols="40"></textarea>
+                    <p><button id="copyBtn3">Copy</button></p>
+                </div>
             </div>
         </div>
     </div>
@@ -41,14 +49,50 @@
 
     /* --- MAIN CODE --- */
 
-    try {
-        var loadNotes = localStorage.getItem("notes");
-    }
-    catch(err) {
-            var loadNotes = "Enter your notes here and click 'Save'";
-    }
 
-    $("#note-area").val(loadNotes);
+    loadNotes = 
+
+    $.ajax({
+            url : "index.txt",
+            dataType: "text",
+            success : function (data) {
+                $("#note-area1").val(data);
+            }
+    });
+
+    $.ajax({
+            url : "style.txt",
+            dataType: "text",
+            success : function (data) {
+                $("#note-area2").val(data);
+            }
+    });
+
+    $.ajax({
+            url : "scripts.txt",
+            dataType: "text",
+            success : function (data) {
+                $("#note-area3").val(data);
+            }
+    });
+
+    $("#copyBtn1").click(function (){
+        var currentNotes = $("#note-area1").val();
+        navigator.clipboard.writeText(currentNotes);
+        alert("code copied")
+    })
+
+    $("#copyBtn2").click(function (){
+        var currentNotes = $("#note-area2").val();
+        navigator.clipboard.writeText(currentNotes);
+        alert("code copied")
+    })
+
+    $("#copyBtn3").click(function (){
+        var currentNotes = $("#note-area3").val();
+        navigator.clipboard.writeText(currentNotes);
+        alert("code copied")
+    })
 
     sp="/"
     today = new Date();
@@ -61,10 +105,6 @@
 
     $("#date").html(mm+sp+dd+sp+yyyy);
 
-    $("#saveNoteBtn").click(function(){
-        var currentNotes = $("#note-area").val();
-        localStorage.setItem("notes", currentNotes);    
-    });
 
 </script>
 </html>
